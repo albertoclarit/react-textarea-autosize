@@ -54,7 +54,7 @@ export default class TextareaAutosize extends React.Component {
     onChange: emptyFunction,
     onHeightChange: emptyFunction,
     useCacheForDOMMeasurements: false
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -79,12 +79,13 @@ export default class TextareaAutosize extends React.Component {
       useCacheForDOMMeasurements: _useCacheForDOMMeasurements,
       ...props,
     } = this.props;
+
     if (typeof valueLink === 'object') {
       props.value = valueLink.value;
     }
     props.style = {
-      ...props.style,
-      height: this.state.height || 0,
+      ... props.style,
+      height: this.state.height || 0
     };
     let maxHeight = Math.max(
       props.style.maxHeight ? props.style.maxHeight : Infinity,
@@ -93,11 +94,11 @@ export default class TextareaAutosize extends React.Component {
       props.style.overflow = 'hidden';
     }
     return (
-      <textarea
-        {...props}
-        onChange={this._onChange}
-        ref={this._onRootDOMNode}
-        />
+            <textarea
+              {...props}
+              onChange={this._onChange}
+              ref={this._onRootDOMNode}
+              />
     );
   }
 
