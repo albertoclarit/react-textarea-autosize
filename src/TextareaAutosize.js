@@ -162,15 +162,15 @@ export default class TextareaAutosize extends React.Component {
 
       //onChange(e);
       //fake event
-      var e = {};
-      e.target={};
-      e.target.value = evt.target.value;
+      var fe = {};
+      fe.target={};
+      fe.target.value = e.target.value;
 
       this.setState({
-        inputValue:evt.target.value
+        inputValue:e.target.value
       },()=>{
         if(this.props.onChange)
-          this.props.onChange(e);
+          this.props.onChange(fe);
       });
 
     }
