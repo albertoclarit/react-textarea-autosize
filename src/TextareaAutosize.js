@@ -61,7 +61,8 @@ export default class TextareaAutosize extends React.Component {
     this.state = {
       height: null,
       minHeight: -Infinity,
-      maxHeight: Infinity
+      maxHeight: Infinity,
+      inputValue: this.props.value
     };
     this._onNextFrameActionId = null;
     this._rootDOMNode = null;
@@ -70,7 +71,10 @@ export default class TextareaAutosize extends React.Component {
     this._onRootDOMNode = this._onRootDOMNode.bind(this);
   }
 
+
+
   render() {
+
     let {
       valueLink,
       minRows: _minRows,
@@ -93,9 +97,14 @@ export default class TextareaAutosize extends React.Component {
     if (maxHeight < this.state.height) {
       props.style.overflow = 'hidden';
     }
+
+
+     delete props.value;
+
     return (
             <textarea
               {...props}
+              value = {this.state.inputValue}
               onChange={this._onChange}
               ref={this._onRootDOMNode}
               />
@@ -107,8 +116,13 @@ export default class TextareaAutosize extends React.Component {
     window.addEventListener('resize', this._resizeComponent);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     // Re-render with the new content then recalculate the height as required.
+
+    this.setState({
+      inputValue: nextProps.value
+    });
+
     this._clearNextFrame();
     this._onNextFrameActionId = onNextFrame(this._resizeComponent);
   }
@@ -138,12 +152,27 @@ export default class TextareaAutosize extends React.Component {
   }
 
   _onChange(e) {
+
+
     this._resizeComponent();
     let {valueLink, onChange} = this.props;
     if (valueLink) {
       valueLink.requestChange(e.target.value);
     } else {
-      onChange(e);
+
+      //onChange(e);
+      //fake event
+      var e = {};
+      e.target={};
+      e.target.value = evt.target.value;
+
+      this.setState({
+        inputValue:evt.target.value
+      },()=>{
+        if(this.props.onChange)
+          this.props.onChange(e);
+      });
+
     }
   }
 
