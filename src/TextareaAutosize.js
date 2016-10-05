@@ -136,7 +136,7 @@ export default class TextareaAutosize extends React.Component {
 
         var fe = {};
         fe.target={};
-        fe.target.value = this.state.inputValue + "<br/>";
+        fe.target.value = this.state.inputValue + "\n";
 
         this.setState({
           inputValue:fe.target.value
