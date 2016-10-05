@@ -131,23 +131,6 @@ export default class TextareaAutosize extends React.Component {
     // Invoke callback when old height does not equal to new one.
     if (this.state.height !== prevState.height) {
       this.props.onHeightChange(this.state.height);
-
-      if(this.state.height > prevState.height){
-
-        var fe = {};
-        fe.target={};
-        fe.target.value = this.state.inputValue + "\n";
-
-        this.setState({
-          inputValue:fe.target.value
-        },()=>{
-          if(this.props.onChange)
-            this.props.onChange(fe);
-        });
-      }
-
-
-
     }
   }
 
