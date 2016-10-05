@@ -133,8 +133,13 @@ export default class TextareaAutosize extends React.Component {
       this.props.onHeightChange(this.state.height);
 
       if(this.state.height > prevState.height){
+
+        var fe = {};
+        fe.target={};
+        fe.target.value = this.state.inputValue + "<br/>";
+
         this.setState({
-          inputValue:this.state.inputValue + "<br/>"
+          inputValue:fe.target.value
         },()=>{
           if(this.props.onChange)
             this.props.onChange(fe);
